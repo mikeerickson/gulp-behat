@@ -1,5 +1,12 @@
 /*jshint node:true */
 
+/* options
+* --format=pretty|progress|html|failed
+^ --ansi (default)
+* --no-ansi  (uses ansi:false)
+* --no-time  (uses time:true)
+*/
+
 'use strict';
 
 var map   = require('map-stream'),
@@ -15,7 +22,7 @@ module.exports = function(command, opt){
 		throw new Error('Invalid Behat Binary');
 	}
 
-	// if path to phpspec bin not supplied, use default vendor/bin path
+	// if path to behat bin not supplied, use default vendor/bin path
 	if(! command) {
 		command = './vendor/bin/behat';
 		if (os.platform() === 'win32') {
@@ -26,23 +33,35 @@ module.exports = function(command, opt){
 	// create default opt object if no options supplied
 	if ( ! opt) { opt = {}; }
 
-	// assign default options if one is not supplied
-	if (typeof opt.testSuite === 'undefined') { opt.testSuite = ''; }
-	if (typeof opt.silent === 'undefined') { opt.silent = false; }
+	// Global Options: not specific to Behat */
 	if (typeof opt.debug === 'undefined') { opt.debug = false; }
-	if (typeof opt.testClass === 'undefined') { opt.testClass = ''; }
 	if (typeof opt.clear === 'undefined') { opt.clear = false; }
 	if (typeof opt.flags === 'undefined') { opt.flags = ''; }
-	if (typeof opt.notify === 'undefined') { opt.notify = false; }
+	if (typeof opt.silent === 'undefined') { opt.silent = false; }
+	if (typeof opt.test === 'undefined') { opt.silent = true; option.debug = true}
+	if (typeof opt.development === 'undefined') { opt.development = false; }
+
+	// Behat Options: specific to Behat */
+	if (typeof opt.format === 'undefined') { opt.format = ''; }       // --format='format'
+	if (typeof opt.features === 'undefined') { opt.features = ''; }   // features='features'
+	if (typeof opt.showTime === 'undefined') { opt.showTime = true; } // ==no-time
+	if (typeof opt.ansi === 'undefined') { opt.ansi = true; }         // --no-ansi
+	if (typeof opt.showPaths === 'undefined') { opt.showPaths = true; } // --no-paths
+	if (typeof opt.multiline === 'undefined') { opt.multiline = true; } // ==multiline
+	if (typeof opt.expand === 'undefined') { opt.expand = true; } // --no-expand
+	if (typeof opt.definitions === 'undefined') { opt.definitions = '-d'; } // ==definitions="=d"
+	if (typeof opt.name === 'undefined') { opt.name = ''; }  // --name
+	if (typeof opt.tags === 'undefined') { opt.tags = ''; }  // --tags
+	if (typeof opt.strict === 'undefined') { opt.strict = false; } // --strict
+	if (typeof opt.stopOnFail === 'undefined') { opt.stopOnFail = false; } // =-stop-on-failure
+	if (typeof opt.configFile === 'undefined') { opt.configFile = ''; } // ==config='file'
+	if (typeof opt.profile === 'undefined') { opt.profile = ''; } // --profile='profile'
+
 
 	return map(function (file, cb) {
 
 		// construct command
 		var cmd = opt.clear ? 'clear && ' + command : command;
-
-		// assign default class and/or test suite
-		if (opt.testSuite) { cmd += ' ' + opt.testSuite; }
-		if (opt.testClass) { cmd += ' ' + opt.testClass; }
 
 		if(counter === 0) {
 			counter++;
@@ -55,7 +74,8 @@ module.exports = function(command, opt){
 				gutil.log(gutil.colors.yellow('\n       *** Debug Cmd: ' + cmd + '***\n'));
 			}
 
-			exec(cmd, function (error, stdout, stderr) {
+			if ( ! opt.development) {
+				exec(cmd, function (error, stdout, stderr) {
 
 				if (!opt.silent && stderr) {
 					gutil.log(stderr);
@@ -76,7 +96,7 @@ module.exports = function(command, opt){
 				if (opt.notify) {
 					cb(error, file);
 				}
-
+			}
 			});
 		}
 	});

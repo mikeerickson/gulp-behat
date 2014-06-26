@@ -1,41 +1,25 @@
 {
-  "name": "gulp-behat",
-  "version": "0.1.0",
-  "description": "PHP Behat plugin for Gulp",
-  "main": "index.js",
+  "name": "laravel-rest",
+  "version": "0.0.1",
+  "description": "Sample Laravel Restified Application",
+  "main": "gulpfile.js",
   "dependencies": {
-    "map-stream": "0.0.4",
-    "gulp-util": "~2.2.14"
+    "gulp": "^3.6.1"
   },
   "devDependencies": {
-    "jshint": "~2.4.4",
-    "mocha": "~1.17.1",
-    "should": "~3.1.2",
-    "gulp-notify": "^1.0.0-beta",
-    "gulp-shell": "^0.2.4",
-    "gulp": "^3.5.5"
+    "gulp-phpunit": "^0.5.1",
+    "gulp-notify": "^1.1.1",
+    "gulp-filelog": "~0.2.0",
+    "gulp-codeception": "^0.4.1",
+    "gulp-phpspec": "^0.2.0"
   },
   "scripts": {
-    "test": "mocha && jshint ./*.js && jshint ./test/*.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mikeerickson/gulp-behat"
+    "url": "git@git2.eu1.frbit.com:laravel-rest.git"
   },
-  "keywords": [
-    "gulpplugin",
-    "behat"
-  ],
-  "author": "Mike Erickson <codedungeon@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mikeerickson/gulp-behat/issues"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "homepage": "https://github.com/mikeerickson/gulp-behat",
-  "directories": {
-    "test": "test"
-  }
+  "author": "",
+  "license": "MIT"
 }

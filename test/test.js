@@ -1,6 +1,6 @@
 'use strict';
 
-var phpspec = require('../'),
+var behat   = require('../'),
     should  = require('should');
 
 require('mocha');
@@ -14,7 +14,7 @@ describe('gulp-behat', function() {
 
 			// Act
 			try {
-				phpspec();
+				behat();
 			} catch (err) {
 				caughtErr = err;
 			}
