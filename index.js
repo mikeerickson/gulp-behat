@@ -1,49 +1,28 @@
 /*jshint node:true */
 
-/* options
- * --format=pretty|progress|html|failed
- ^ --ansi (default)
- * --no-ansi  (uses ansi:false)
- * --no-time  (uses time:true)
- */
-
 'use strict';
 
 var map   = require('map-stream'),
-	gutil = require('gulp-util'),
-	os    = require('os'),
-	exec  = require('child_process').exec;
+	gutil   = require('gulp-util'),
+	os      = require('os'),
+	exec    = require('child_process').exec;
 
 module.exports = function(command, opt){
 	var counter = 0;
 	var skipCmd = '';
 
-	if (typeof command === 'object') {
-		throw new Error('Invalid Behat Binary');
-	}
-
-	// if path to behat bin not supplied, use default vendor/bin path
-	if(! command) {
-		var ansi = '--ansi';
-
-		command = './vendor/bin/behat';
-		if (os.platform() === 'win32') {
-			command = '.\\vendor\\bin\\behat';
-		}
-	}
-
 	// create default opt object if no options supplied
-	if ( ! opt) { opt = {}; }
+	opt = opt || {};
 
 	// Global Options: not specific to Behat */
 	if (typeof opt.debug === 'undefined') { opt.debug = false; }
 	if (typeof opt.clear === 'undefined') { opt.clear = false; }
 	if (typeof opt.flags === 'undefined') { opt.flags = ''; }
 	if (typeof opt.silent === 'undefined') { opt.silent = false; }
-	if (typeof opt.test === 'undefined') { opt.silent = true; opt.debug = true}
 	if (typeof opt.development === 'undefined') { opt.development = false; }
 
 	// Behat Options: specific to Behat */
+	if (typeof opt.dryRun === 'undefined') { opt.dryRun = false; }             // --format='format'
 	if (typeof opt.format === 'undefined') { opt.format = ''; }             // --format='format'
 	if (typeof opt.features === 'undefined') { opt.features = ''; }         // features='features'
 	if (typeof opt.showTime === 'undefined') { opt.showTime = true; }       // --no-time
@@ -59,6 +38,17 @@ module.exports = function(command, opt){
 	if (typeof opt.configFile === 'undefined') { opt.configFile = ''; }     // --config='file'
 	if (typeof opt.profile === 'undefined') { opt.profile = ''; }           // --profile='profile'
 
+
+	// if path to behat bin not supplied, use default vendor/bin path
+	if(! command) {
+		command = './vendor/bin/behat';
+		if (os.platform() === 'win32') {
+			command = command.replace(/[/]/g, '\\');
+		}
+	} else if (typeof command !== 'string') {
+		throw new gutil.PluginError('gulp-behat', 'Invalid Behat Binary');
+	}
+
 	return map(function (file, cb) {
 
 		// construct command
@@ -66,13 +56,15 @@ module.exports = function(command, opt){
 
 		// integrate options
 		cmd = opt.ansi ? cmd += ' --ansi' : cmd += ' --no-ansi';
-		cmd = opt.expand ? cmd += ' --expand' : cmd += ' --no-expand';
-		cmd = opt.showTime ? cmd += ' --time' : cmd += ' --no-time';
-		cmd = opt.showPaths ? cmd += ' --paths' : cmd += ' --no-paths';
-		if(opt.strict) { cmd += '--strict' }
-		if(opt.stopOnFail) { cmd += '--stop-on-failure' }
-		if(opt.configFile != '') { cmd += '--config=' + opt.configFile }
-		if(opt.profile != '') { cmd += '--config=' + opt.profile }
+
+		if(opt.dryRun) { cmd += ' --dry-run'; }
+		if(! opt.showTime) { cmd += ' --no-time'; }
+		if(! opt.showPaths) { cmd += ' --no-paths'; }
+		if(! opt.expand) { cmd += ' --no-expand'; }
+		if(opt.strict) { cmd += ' --strict'; }
+		if(opt.stopOnFail) { cmd += ' --stop-on-failure'; }
+		if(opt.configFile !== '') { cmd += ' --config=' + opt.configFile; }
+		if(opt.profile !== '') { cmd += ' --config=' + opt.profile; }
 
 		if(counter === 0) {
 			counter++;
@@ -88,7 +80,9 @@ module.exports = function(command, opt){
 			if ( ! opt.development) {
 				exec(cmd, function (error, stdout, stderr) {
 
-					console.log(stdout);
+					if(! opt.silent) {
+						gutil.log(stdout);
+					}
 
 					if (!opt.silent && stderr) {
 						gutil.log(stderr);

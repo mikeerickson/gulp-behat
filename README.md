@@ -12,7 +12,7 @@ npm install --save-dev gulp-behat
 Then, add it to your `gulpfile.js`:
 
 ```javascript
-var phpspec = require('gulp-behat');
+var behat = require('gulp-behat');
 
 // option 1: default format
 gulp.task('behat', function() {
@@ -56,14 +56,14 @@ If you want a quick and dirty gulpfile, here is one I created for testing this p
 
 ## API
 
-### (phpspecpath,options,cb)
+### (behatpath,options,cb)
 
-#### phpspecpath
+#### behatpath
 
 Type: `String`
 
-The path to the desired PHPSpec binary
-- If not supplied, the defeault path will be ./vendor/bin/phpspec
+The path to the desired Behat binary
+- If not supplied, the defeault path will be ./vendor/bin/behat
 
 #### options.debug
 Type: `Boolean (Default: false)`
@@ -83,7 +83,13 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
-- 0.1.0: Initial Release
+- 0.0.6: Added more behat options
+  * Added dryRun
+  * Added silent
+  
+- 0.0.5 Fixed some README issues
+
+- 0.0.3: Initial Release
 
 ## Credits
 
