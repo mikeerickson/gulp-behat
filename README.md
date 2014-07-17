@@ -83,6 +83,9 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
+- 0.1.0: Tagged to support Behat 2, future development will focus on Behat 3
+  * Created tag for Behat 2 support
+  
 - 0.0.6: Added more behat options
   * Added dryRun
   * Added silent
