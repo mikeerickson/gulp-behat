@@ -14,6 +14,18 @@ module.exports = function(command, opt){
 	// create default opt object if no options supplied
 	opt = opt || {};
 
+	if (typeof opt.paths === 'undefined') { opt.paths = ''; }
+
+	if (typeof opt.suite === 'undefined') { opt.suite = ''; }
+	if (typeof opt.out === 'undefined') { opt.out = ''; }
+	if (typeof opt.formatSettings === 'undefined') { opt.formatSettings = ''; }
+	if (typeof opt.lang === 'undefined') { opt.lang = ''; }
+	if (typeof opt.tags === 'undefined') { opt.tags = ''; }
+	if (typeof opt.role === 'undefined') { opt.role = ''; }
+	if (typeof opt.definitions === 'undefined') { opt.definitons = ''; }
+	if (typeof opt.noSnippets === 'undefined') { opt.noSnippets = true; }
+	if (typeof opt.rerun === 'undefined') { opt.rerun = false; }
+
 	// Global Options: not specific to Behat */
 	if (typeof opt.debug === 'undefined') { opt.debug = false; }
 	if (typeof opt.clear === 'undefined') { opt.clear = false; }
@@ -22,8 +34,9 @@ module.exports = function(command, opt){
 	if (typeof opt.development === 'undefined') { opt.development = false; }
 
 	// Behat Options: specific to Behat */
-	if (typeof opt.dryRun === 'undefined') { opt.dryRun = false; }             // --format='format'
+	if (typeof opt.dryRun === 'undefined') { opt.dryRun = false; }          // --format='format'
 	if (typeof opt.format === 'undefined') { opt.format = ''; }             // --format='format'
+	if (typeof opt.formatSettings === 'undefined') { opt.formatSettings = ''; }             // --format='format'
 	if (typeof opt.features === 'undefined') { opt.features = ''; }         // features='features'
 	if (typeof opt.showTime === 'undefined') { opt.showTime = true; }       // --no-time
 	if (typeof opt.ansi === 'undefined') { opt.ansi = true; }               // --no-ansi
@@ -51,11 +64,29 @@ module.exports = function(command, opt){
 
 	return map(function (file, cb) {
 
+
 		// construct command
 		var cmd = opt.clear ? 'clear && ' + command : command;
 
+		if (opt.paths !== '') {
+			cmd += cmd + ' ' + opt.paths;
+		}
+
 		// integrate options
 		cmd = opt.ansi ? cmd += ' --ansi' : cmd += ' --no-ansi';
+
+
+		if(opt.suite !== '') { cmd += ' --suite=' + opt.suite; }
+		if(opt.out !== '') { cmd += ' --out=' + opt.out; }
+		if(opt.formatSettings !== '') { cmd += ' --format-settings=' + opt.formatSettings; }
+		if(opt.lang !== '') { cmd += ' --lang=' + opt.lang; }
+		if(opt.tags !== '') { cmd += ' --tags=' + opt.tags; }
+		if(opt.role !== '') { cmd += ' --role=' + opt.role; }
+		if(opt.definitons !== '') { cmd += ' --definitions=' + opt.definitons; }
+		if(opt.noSnippets) {
+			cmd += ' --no-snippets --no-interaction';
+		}
+		if(opt.rerun) { cmd += ' --rerun'; }
 
 		if(opt.dryRun) { cmd += ' --dry-run'; }
 		if(! opt.showTime) { cmd += ' --no-time'; }
@@ -73,8 +104,12 @@ module.exports = function(command, opt){
 
 			cmd.trim(); // clean up any space remnants
 
-			if (opt.debug) {
-				gutil.log(gutil.colors.yellow('\n       *** Debug Cmd: ' + cmd + '***\n'));
+			if ((opt.debug) || (opt.dryRun)){
+				if(opt.dryRun) {
+					gutil.log(gutil.colors.green('\n\n       *** Dry Run: ' + cmd + '***\n'));
+				} else {
+					gutil.log(gutil.colors.yellow('\n\n       *** Debug Cmd: ' + cmd + '***\n'));
+				}
 			}
 
 			if ( ! opt.development) {
