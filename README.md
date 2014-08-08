@@ -174,6 +174,8 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
+- 0.3.1: Added Travis CI Integration
+
 - 0.3.0: Now supports Behat 3 (see tag 0.2.0 for Behat 2.x support)
 
 - 0.2.0: Tagged to support Behat 2, future development will focus on Behat 3
