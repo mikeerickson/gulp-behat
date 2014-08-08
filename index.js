@@ -25,6 +25,7 @@ module.exports = function(command, opt){
 	if (typeof opt.definitions === 'undefined') { opt.definitons = ''; }
 	if (typeof opt.noSnippets === 'undefined') { opt.noSnippets = true; }
 	if (typeof opt.rerun === 'undefined') { opt.rerun = false; }
+	if (typeof opt.colors === 'undefined') { opt.colors = true; }
 
 	// Global Options: not specific to Behat */
 	if (typeof opt.debug === 'undefined') { opt.debug = false; }
@@ -39,7 +40,6 @@ module.exports = function(command, opt){
 	if (typeof opt.formatSettings === 'undefined') { opt.formatSettings = ''; }             // --format='format'
 	if (typeof opt.features === 'undefined') { opt.features = ''; }         // features='features'
 	if (typeof opt.showTime === 'undefined') { opt.showTime = true; }       // --no-time
-	if (typeof opt.ansi === 'undefined') { opt.ansi = true; }               // --no-ansi
 	if (typeof opt.showPaths === 'undefined') { opt.showPaths = true; }     // --no-paths
 	if (typeof opt.multiline === 'undefined') { opt.multiline = true; }     // --multiline
 	if (typeof opt.expand === 'undefined') { opt.expand = true; }           // --no-expand
@@ -72,10 +72,6 @@ module.exports = function(command, opt){
 			cmd += cmd + ' ' + opt.paths;
 		}
 
-		// integrate options
-		cmd = opt.ansi ? cmd += ' --ansi' : cmd += ' --no-ansi';
-
-
 		if(opt.suite !== '') { cmd += ' --suite=' + opt.suite; }
 		if(opt.out !== '') { cmd += ' --out=' + opt.out; }
 		if(opt.formatSettings !== '') { cmd += ' --format-settings=' + opt.formatSettings; }
@@ -87,6 +83,7 @@ module.exports = function(command, opt){
 			cmd += ' --no-snippets --no-interaction';
 		}
 		if(opt.rerun) { cmd += ' --rerun'; }
+		if(opt.colors) { cmd += ' --colors'; }
 
 		if(opt.dryRun) { cmd += ' --dry-run'; }
 		if(! opt.showTime) { cmd += ' --no-time'; }

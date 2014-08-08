@@ -143,6 +143,11 @@ Type: `Boolean`
 
 Invokes formatters without executing the tests and hooks.
 
+#### options.colors (default: true)
+Type: `Boolean`
+
+Enables ansi colors (if not supplied it will be used by default)
+
 #### options.profile
 Type: `String`
 
@@ -173,6 +178,11 @@ Type: `Boolean (Default: false)`
 Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
+
+- 0.3.1: Fixed ansi color issues
+  * Added `colors` option
+  * Removed `no-ansi` and `ansi` options (deprecated with Behat 3, use `colors`)
+
 
 - 0.3.1: Added Travis CI Integration
 
