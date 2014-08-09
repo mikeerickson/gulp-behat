@@ -57,6 +57,9 @@ If you want a quick and dirty gulpfile, here is one I created for testing this p
 ## API (See Behat online help for complete details $ behat --help)
 
 ### (behatpath,options,cb)
+- All parameters are optional
+- If no parameters supplied, it will be equivalent of calling `behat` from command line
+  and all defaults will be used (based on behat.yml configuration)
 
 #### behatpath
 
@@ -179,10 +182,12 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
-- 0.3.1: Fixed ansi color issues
+- 0.3.3: Bug Fixes and Optimization
+  * Fixed issues with `paths` option
+
+- 0.3.2: Fixed ansi color issues
   * Added `colors` option
   * Removed `no-ansi` and `ansi` options (deprecated with Behat 3, use `colors`)
-
 
 - 0.3.1: Added Travis CI Integration
 

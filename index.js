@@ -64,13 +64,12 @@ module.exports = function(command, opt){
 
 	return map(function (file, cb) {
 
+		if (opt.paths !== '') {
+			command += ' ' + opt.paths;
+		}
 
 		// construct command
 		var cmd = opt.clear ? 'clear && ' + command : command;
-
-		if (opt.paths !== '') {
-			cmd += cmd + ' ' + opt.paths;
-		}
 
 		if(opt.suite !== '') { cmd += ' --suite=' + opt.suite; }
 		if(opt.out !== '') { cmd += ' --out=' + opt.out; }
