@@ -111,20 +111,16 @@ module.exports = function(command, opt){
 			if ( ! opt.development) {
 				exec(cmd, function (error, stdout, stderr) {
 
-					if(! opt.silent) {
-						gutil.log(stdout);
-					}
-
-					if (!opt.silent && stderr) {
-						gutil.log(stderr);
-					}
-
 					if (stdout) {
 						stdout = stdout.trim(); // Trim trailing cr-lf
 					}
 
 					if (!opt.silent && stdout) {
 						gutil.log(stdout);
+					}
+
+					if (!opt.silent && stderr) {
+						gutil.log(stderr);
 					}
 
 					if (opt.debug && error) {
