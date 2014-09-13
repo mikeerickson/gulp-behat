@@ -184,6 +184,7 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 - 0.3.3: Bug Fixes and Optimization
   * Fixed issues with `paths` option
+  * Fixed issue with multiple execution (#2)
 
 - 0.3.2: Fixed ansi color issues
   * Added `colors` option

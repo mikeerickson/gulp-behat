@@ -1,6 +1,6 @@
 {
   "name": "gulp-behat",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Behat plugin for Gulp",
   "main": "index.js",
   "dependencies": {
@@ -17,7 +17,7 @@
     "gulp-util": "^2.2.20"
   },
   "scripts": {
-    "test": "mocha && jshint ./*.js && jshint ./test/*.js"
+    "test": "mocha --reporter=spec && jshint ./*.js && jshint ./test/*.js"
   },
   "repository": {
     "type": "git",
