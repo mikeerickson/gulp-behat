@@ -27,23 +27,28 @@ gulp.task('behat', function() {
 
 // option 3: supply callback to integrate something like notification (using gulp-notify)
 
-var gulp    = require('gulp'),
-    notify  = require('gulp-notify'),
-    behat   = require('gulp-behat');
+var gulp = require('gulp'),
+ notify  = require('gulp-notify'),
+ behat   = require('gulp-behat'),
+ _       = require('lodash');
 
-gulp.task('behat', function() {
-	var options = {notify: false};
-	gulp.src('app/tests/**/*.php')
-		.pipe(behat('', options))
-		.on('error', notify.onError({
-			title: "Testing Failed",
-			message: "Error(s) occurred during test..."
-		}))
-		.pipe(notify({
-			title: "Testing Passed",
-			message: "All tests have passed..."
-		}));
-});
+  gulp.task('behat', function() {
+    gulp.src('behat.yml')
+      .pipe(behat('', {notify: true}))
+      .on('error', notify.onError(testNotification('fail', 'behat')))
+      .pipe(notify(testNotification('pass', 'behat')));
+  });
+
+function testNotification(status, pluginName, override) {
+	var options = {
+		title:   ( status == 'pass' ) ? 'Tests Passed' : 'Tests Failed',
+		message: ( status == 'pass' ) ? '\n\nAll tests have passed!\n\n' : '\n\nOne or more tests failed...\n\n',
+		icon:    __dirname + '/node_modules/gulp-' + pluginName +'/assets/test-' + status + '.png'
+	};
+	options = _.merge(options, override);
+  return options;
+}
+
 
 ```
 
@@ -182,6 +187,11 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
+- 0.4.0 Added Plugin Resources
+    - Added new icons for pass and fail which can be used by notify plugin (see example below for usage)
+      /assets/test-pass.png
+      /assets/test-fail.png
+ 
 - 0.3.3: Bug Fixes and Optimization
   * Fixed issues with `paths` option
   * Fixed issue with multiple execution (#2)
