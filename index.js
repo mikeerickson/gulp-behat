@@ -74,6 +74,7 @@ module.exports = function(command, opt){
 		if(opt.suite !== '') { cmd += ' --suite=' + opt.suite; }
 		if(opt.out !== '') { cmd += ' --out=' + opt.out; }
 		if(opt.formatSettings !== '') { cmd += ' --format-settings=' + opt.formatSettings; }
+		if(opt.format !== '') { cmd += ' --format=' + opt.format; }
 		if(opt.lang !== '') { cmd += ' --lang=' + opt.lang; }
 		if(opt.tags !== '') { cmd += ' --tags=' + opt.tags; }
 		if(opt.role !== '') { cmd += ' --role=' + opt.role; }
