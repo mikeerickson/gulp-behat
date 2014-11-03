@@ -83,7 +83,7 @@ module.exports = function(command, opt){
 			cmd += ' --no-snippets --no-interaction';
 		}
 		if (opt.rerun) { cmd += ' --rerun'; }
-		if (opt.colors) { cmd += ' --colors'; }`
+		if (opt.colors) { cmd += ' --colors'; }
 
 		if (opt.dryRun) { cmd += ' --dry-run'; }
 		if ( ! opt.showTime ) { cmd += ' --no-time'; }

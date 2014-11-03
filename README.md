@@ -187,6 +187,9 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
+- 0.4.2 Source Typo
+    - Fixed a source code typo (happy fingers I guess)
+    
 - 0.4.1 Small Updates
     - Added missing opt.format setter
     
