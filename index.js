@@ -71,29 +71,30 @@ module.exports = function(command, opt){
 		// construct command
 		var cmd = opt.clear ? 'clear && ' + command : command;
 
-		if(opt.suite !== '') { cmd += ' --suite=' + opt.suite; }
-		if(opt.out !== '') { cmd += ' --out=' + opt.out; }
-		if(opt.formatSettings !== '') { cmd += ' --format-settings=' + opt.formatSettings; }
-		if(opt.lang !== '') { cmd += ' --lang=' + opt.lang; }
-		if(opt.tags !== '') { cmd += ' --tags=' + opt.tags; }
-		if(opt.role !== '') { cmd += ' --role=' + opt.role; }
-		if(opt.definitons !== '') { cmd += ' --definitions=' + opt.definitons; }
-		if(opt.noSnippets) {
+		if (opt.suite !== '') { cmd += ' --suite=' + opt.suite; }
+		if (opt.out !== '') { cmd += ' --out=' + opt.out; }
+		if (opt.formatSettings !== '') { cmd += ' --format-settings=' + opt.formatSettings; }
+		if (opt.format !== '') { cmd += ' --format=' + opt.format; }
+		if (opt.lang !== '') { cmd += ' --lang=' + opt.lang; }
+		if (opt.tags !== '') { cmd += ' --tags=' + opt.tags; }
+		if (opt.role !== '') { cmd += ' --role=' + opt.role; }
+		if (opt.definitons !== '') { cmd += ' --definitions=' + opt.definitons; }
+		if (opt.noSnippets) {
 			cmd += ' --no-snippets --no-interaction';
 		}
-		if(opt.rerun) { cmd += ' --rerun'; }
-		if(opt.colors) { cmd += ' --colors'; }
+		if (opt.rerun) { cmd += ' --rerun'; }
+		if (opt.colors) { cmd += ' --colors'; }`
 
-		if(opt.dryRun) { cmd += ' --dry-run'; }
-		if(! opt.showTime) { cmd += ' --no-time'; }
-		if(! opt.showPaths) { cmd += ' --no-paths'; }
-		if(! opt.expand) { cmd += ' --no-expand'; }
-		if(opt.strict) { cmd += ' --strict'; }
-		if(opt.stopOnFail) { cmd += ' --stop-on-failure'; }
-		if(opt.configFile !== '') { cmd += ' --config=' + opt.configFile; }
-		if(opt.profile !== '') { cmd += ' --config=' + opt.profile; }
+		if (opt.dryRun) { cmd += ' --dry-run'; }
+		if ( ! opt.showTime ) { cmd += ' --no-time'; }
+		if ( ! opt.showPaths ) { cmd += ' --no-paths'; }
+		if ( ! opt.expand ) { cmd += ' --no-expand'; }
+		if (opt.strict) { cmd += ' --strict'; }
+		if (opt.stopOnFail) { cmd += ' --stop-on-failure'; }
+		if (opt.configFile !== '') { cmd += ' --config=' + opt.configFile; }
+		if (opt.profile !== '') { cmd += ' --config=' + opt.profile; }
 
-		if(counter === 0) {
+		if (counter === 0) {
 			counter++;
 
 			cmd += skipCmd + ' ' + opt.flags;

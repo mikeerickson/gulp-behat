@@ -187,6 +187,9 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
+- 0.4.1 Small Updates
+    - Added missing opt.format setter
+    
 - 0.4.0 Added Plugin Resources
     - Added new icons for pass and fail which can be used by notify plugin (see example below for usage)
       /assets/test-pass.png
