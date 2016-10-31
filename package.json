@@ -33,7 +33,7 @@
     "url": "https://github.com/mikeerickson/gulp-behat/issues"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">= 4"
   },
   "homepage": "https://github.com/mikeerickson/gulp-behat",
   "directories": {
