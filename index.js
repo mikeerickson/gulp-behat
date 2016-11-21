@@ -92,7 +92,7 @@ module.exports = function(command, opt){
 		if (opt.strict) { cmd += ' --strict'; }
 		if (opt.stopOnFail) { cmd += ' --stop-on-failure'; }
 		if (opt.configFile !== '') { cmd += ' --config=' + opt.configFile; }
-		if (opt.profile !== '') { cmd += ' --config=' + opt.profile; }
+		if (opt.profile !== '') { cmd += ' --profile=' + opt.profile; }
 
 		if (counter === 0) {
 			counter++;
