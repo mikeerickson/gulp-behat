@@ -166,6 +166,11 @@ Type: `String`
 
 Specify config to use.
 
+#### options.customOptions
+Type: `Object`
+
+Specify custom options, e.g. added by an extension. The property is the option name, the value is the option value (e.g.: customOptions: { 'parallel-process': 10 }).
+
 
 ## Plug Options
 

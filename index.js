@@ -51,6 +51,11 @@ module.exports = function(command, opt){
 	if (typeof opt.configFile === 'undefined') { opt.configFile = ''; }     // --config='file'
 	if (typeof opt.profile === 'undefined') { opt.profile = ''; }           // --profile='profile'
 
+	// Custom Behat Options: specific to Behat Extensions */
+	if (typeof opt.customOptions !== 'object') {														// --someOption=value
+		opt.customOptions = {};
+	}
+
 
 	// if path to behat bin not supplied, use default vendor/bin path
 	if(! command) {
@@ -93,6 +98,9 @@ module.exports = function(command, opt){
 		if (opt.stopOnFail) { cmd += ' --stop-on-failure'; }
 		if (opt.configFile !== '') { cmd += ' --config=' + opt.configFile; }
 		if (opt.profile !== '') { cmd += ' --profile=' + opt.profile; }
+		Object.keys(opt.customOptions).forEach(function(key) {
+			cmd += ' --' + key + '=' + opt.customOptions[key];
+		});
 
 		if (counter === 0) {
 			counter++;
