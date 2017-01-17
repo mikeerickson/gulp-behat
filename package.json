@@ -16,7 +16,7 @@
     "gulp-util": "^2.2.20",
     "jshint": "^2.5.3",
     "mocha": "~1.17.1",
-    "should": "~3.1.2"
+    "should": "~11.1.1"
   },
   "scripts": {
     "test": "mocha --reporter=spec && jshint ./*.js && jshint ./test/*.js"
