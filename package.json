@@ -1,11 +1,13 @@
 {
   "name": "gulp-behat",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Behat plugin for Gulp",
   "main": "index.js",
   "dependencies": {
-    "map-stream": "0.0.4",
-    "gulp-util": "~2.2.14"
+    "chalk": "^1.0.0",
+    "gulp": "^3.8.11",
+    "gulp-util": "~2.2.14",
+    "map-stream": "0.0.4"
   },
   "devDependencies": {
     "gulp": "^3.5.5",

@@ -1,11 +1,14 @@
 /*jshint node:true */
+/*global require*/
+/*global module*/
 
 'use strict';
 
-var map   = require('map-stream'),
-	gutil   = require('gulp-util'),
-	os      = require('os'),
-	exec    = require('child_process').exec;
+var map   = require('map-stream');
+var	gutil = require('gulp-util');
+var	os    = require('os');
+var	exec  = require('child_process').exec;
+var chalk = require('chalk');
 
 module.exports = function(command, opt){
 	var counter = 0;
@@ -111,9 +114,9 @@ module.exports = function(command, opt){
 
 			if ((opt.debug) || (opt.dryRun)){
 				if(opt.dryRun) {
-					gutil.log(gutil.colors.green('\n\n       *** Dry Run: ' + cmd + '***\n'));
+					gutil.log(chalk.green('\n\n       *** Dry Run: ' + cmd + '***\n'));
 				} else {
-					gutil.log(gutil.colors.yellow('\n\n       *** Debug Cmd: ' + cmd + '***\n'));
+					gutil.log(chalk.yellow('\n\n       *** Debug Cmd: ' + cmd + '***\n'));
 				}
 			}
 
@@ -129,11 +132,11 @@ module.exports = function(command, opt){
 					}
 
 					if (!opt.silent && stderr) {
-						gutil.log(stderr);
+						gutil.log(chalk.red(stderr));
 					}
 
 					if (opt.debug && error) {
-						gutil.log(error);
+						gutil.log(chalk.red(error));
 					}
 
 					if (opt.notify) {
@@ -141,6 +144,9 @@ module.exports = function(command, opt){
 					}
 
 				});
+
+			} else {
+				return cb(null, file);
 			}
 		}
 	});
