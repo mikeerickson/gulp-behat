@@ -15,7 +15,7 @@
     "gulp-shell": "^0.2.4",
     "gulp-util": "^2.2.20",
     "jshint": "^2.5.3",
-    "mocha": "~1.17.1",
+    "mocha": "~3.1.1",
     "should": "~3.1.2"
   },
   "scripts": {
