@@ -161,7 +161,7 @@ Type: `String`
 
 Specify config profile to use.
 
-#### options.config
+#### options.configFile
 Type: `String`
 
 Specify config to use.
